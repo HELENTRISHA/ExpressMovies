@@ -68,7 +68,7 @@ app.post("/movies", (req, res) => {
 });
 
 //to update
-app.put("/movie/:id", (req, res) => {
+app.put("/movies/:id", (req, res) => {
   const movieId = req.params.id;
   const moviePropsToUpdate = req.body;
   connection.query(
@@ -83,4 +83,17 @@ app.put("/movie/:id", (req, res) => {
       }
     }
   );
+});
+
+//delete
+app.delete("/movies/:id", (req, res) => {
+  const movieId = req.params.id;
+  con.query(`DELETE FROM movies WHERE id = "0"`, [movieId], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("😱 Error deleting a movie");
+    } else {
+      res.status(200).send("🎉 movie deleted!");
+    }
+  });
 });
